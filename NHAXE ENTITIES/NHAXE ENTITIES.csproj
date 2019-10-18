@@ -1,0 +1,290 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{C73C2181-7341-4486-878A-89E7090608DD}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>NHAXE_ENTITIES</RootNamespace>
+    <AssemblyName>NHAXE ENTITIES</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="frmChuyenXe.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmChuyenXe.Designer.cs">
+      <DependentUpon>frmChuyenXe.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmDatCho.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmDatCho.Designer.cs">
+      <DependentUpon>frmDatCho.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmKhachHang.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmKhachHang.Designer.cs">
+      <DependentUpon>frmKhachHang.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmLichKH.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmLichKH.Designer.cs">
+      <DependentUpon>frmLichKH.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmLogin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmLogin.Designer.cs">
+      <DependentUpon>frmLogin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmMain.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmMain.Designer.cs">
+      <DependentUpon>frmMain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmNhanVien.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmNhanVien.Designer.cs">
+      <DependentUpon>frmNhanVien.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmPhanCong.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmPhanCong.Designer.cs">
+      <DependentUpon>frmPhanCong.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmTuyenXe.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmTuyenXe.Designer.cs">
+      <DependentUpon>frmTuyenXe.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmViTri.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmViTri.Designer.cs">
+      <DependentUpon>frmViTri.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmXeKhach.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmXeKhach.Designer.cs">
+      <DependentUpon>frmXeKhach.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="frmChuyenXe.resx">
+      <DependentUpon>frmChuyenXe.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmDatCho.resx">
+      <DependentUpon>frmDatCho.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmKhachHang.resx">
+      <DependentUpon>frmKhachHang.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmLichKH.resx">
+      <DependentUpon>frmLichKH.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmLogin.resx">
+      <DependentUpon>frmLogin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmMain.resx">
+      <DependentUpon>frmMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmNhanVien.resx">
+      <DependentUpon>frmNhanVien.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmPhanCong.resx">
+      <DependentUpon>frmPhanCong.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmTuyenXe.resx">
+      <DependentUpon>frmTuyenXe.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmViTri.resx">
+      <DependentUpon>frmViTri.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmXeKhach.resx">
+      <DependentUpon>frmXeKhach.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BusinessLayer\BusinessLayer.csproj">
+      <Project>{b5ee119b-693c-4193-bd77-d0e3c9e060b8}</Project>
+      <Name>BusinessLayer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DataProvider\DataProvider.csproj">
+      <Project>{372c159c-c480-4f9b-9a6c-552c940059d0}</Project>
+      <Name>DataProvider</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Model\Model.csproj">
+      <Project>{7402729b-e87e-48ff-8303-fc1eff7dda42}</Project>
+      <Name>Model</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="file\Action-configure-icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="file\Action-decrypted-icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="file\Action-encrypted-icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="file\Action-exit-icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="file\Action-lock-icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="file\Action-paste-icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="file\Actions-view-calendar-day-icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="file\Add.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="file\Apps-date-icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="file\Apps-preferences-desktop-user-icon 32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="file\Apps-preferences-desktop-user-icon 96x96.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="file\Apps-preferences-desktop-user-icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="file\Apps-preferences-desktop-user-password-icon 32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="file\Apps-preferences-desktop-user-password-icon 96x96.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="file\Apps-preferences-desktop-user-password-icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="file\bus-blue-icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="file\calendar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="file\check.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="file\edit.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="file\find16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="file\find32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="file\Log-Out-icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="file\minus.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="file\Refresh.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="file\schedule.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="file\User-Group-icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="file\Users-icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="file\xe-khach-thanh-buoi-can-tho-2.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="file\xe-phuong-trang.jpg" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

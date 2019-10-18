@@ -1,0 +1,1136 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="NHAXEModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="CHUYENXE">
+          <Key>
+            <PropertyRef Name="MaCXe" />
+          </Key>
+          <Property Name="MaCXe" Type="varchar" MaxLength="5" Nullable="false" />
+          <Property Name="MaTuyen" Type="varchar" MaxLength="5" />
+          <Property Name="GioDi" Type="time" Precision="7" />
+          <Property Name="GioDen" Type="time" Precision="7" />
+        </EntityType>
+        <EntityType Name="DATCHO">
+          <Key>
+            <PropertyRef Name="NgayDi" />
+            <PropertyRef Name="MaCXe" />
+            <PropertyRef Name="MaKH" />
+          </Key>
+          <Property Name="NgayDi" Type="date" Nullable="false" />
+          <Property Name="MaCXe" Type="varchar" MaxLength="5" Nullable="false" />
+          <Property Name="MaKH" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="KHACHHANG">
+          <Key>
+            <PropertyRef Name="MaKH" />
+          </Key>
+          <Property Name="HoVaTen" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="NSinh" Type="date" />
+          <Property Name="DThoai" Type="varchar" MaxLength="11" />
+          <Property Name="CMND" Type="varchar" MaxLength="9" Nullable="false" />
+          <Property Name="DChi" Type="nvarchar" MaxLength="50" />
+          <Property Name="MaKH" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="LICHKH">
+          <Key>
+            <PropertyRef Name="NgayDi" />
+            <PropertyRef Name="MaCXe" />
+          </Key>
+          <Property Name="NgayDi" Type="date" Nullable="false" />
+          <Property Name="MaCXe" Type="varchar" MaxLength="5" Nullable="false" />
+          <Property Name="SoHieuXe" Type="varchar" MaxLength="9" />
+        </EntityType>
+        <EntityType Name="NHANVIEN">
+          <Key>
+            <PropertyRef Name="MaNV" />
+          </Key>
+          <Property Name="HoVaTen" Type="nvarchar" MaxLength="50" />
+          <Property Name="NSinh" Type="date" />
+          <Property Name="MaNV" Type="varchar" MaxLength="5" Nullable="false" />
+          <Property Name="DThoai" Type="varchar" MaxLength="11" />
+          <Property Name="CMND" Type="varchar" MaxLength="9" Nullable="false" />
+          <Property Name="DChi" Type="nvarchar" MaxLength="50" />
+          <Property Name="MaViTri" Type="int" />
+        </EntityType>
+        <EntityType Name="PHANCONG">
+          <Key>
+            <PropertyRef Name="MaNV" />
+            <PropertyRef Name="NgayDi" />
+            <PropertyRef Name="MaCXe" />
+          </Key>
+          <Property Name="MaNV" Type="varchar" MaxLength="5" Nullable="false" />
+          <Property Name="NgayDi" Type="date" Nullable="false" />
+          <Property Name="MaCXe" Type="varchar" MaxLength="5" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TUYENXE">
+          <Key>
+            <PropertyRef Name="MaTuyen" />
+          </Key>
+          <Property Name="MaTuyen" Type="varchar" MaxLength="5" Nullable="false" />
+          <Property Name="DDi" Type="nvarchar" MaxLength="50" />
+          <Property Name="DDen" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="VITRI">
+          <Key>
+            <PropertyRef Name="MaViTri" />
+          </Key>
+          <Property Name="MaViTri" Type="int" Nullable="false" />
+          <Property Name="TenViTri" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="XEKHACH">
+          <Key>
+            <PropertyRef Name="SoHieuXe" />
+          </Key>
+          <Property Name="SoHieuXe" Type="varchar" MaxLength="9" Nullable="false" />
+          <Property Name="SoGhe" Type="int" />
+        </EntityType>
+        <Association Name="FK_CHUYENXE_TUYENXE">
+          <End Role="TUYENXE" Type="Self.TUYENXE" Multiplicity="0..1" />
+          <End Role="CHUYENXE" Type="Self.CHUYENXE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TUYENXE">
+              <PropertyRef Name="MaTuyen" />
+            </Principal>
+            <Dependent Role="CHUYENXE">
+              <PropertyRef Name="MaTuyen" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DATCHO_KHACHHANG">
+          <End Role="KHACHHANG" Type="Self.KHACHHANG" Multiplicity="1" />
+          <End Role="DATCHO" Type="Self.DATCHO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KHACHHANG">
+              <PropertyRef Name="MaKH" />
+            </Principal>
+            <Dependent Role="DATCHO">
+              <PropertyRef Name="MaKH" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DATCHO_LICHKH">
+          <End Role="LICHKH" Type="Self.LICHKH" Multiplicity="1" />
+          <End Role="DATCHO" Type="Self.DATCHO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LICHKH">
+              <PropertyRef Name="NgayDi" />
+              <PropertyRef Name="MaCXe" />
+            </Principal>
+            <Dependent Role="DATCHO">
+              <PropertyRef Name="NgayDi" />
+              <PropertyRef Name="MaCXe" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LICHKH_CHUYENXE">
+          <End Role="CHUYENXE" Type="Self.CHUYENXE" Multiplicity="1" />
+          <End Role="LICHKH" Type="Self.LICHKH" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CHUYENXE">
+              <PropertyRef Name="MaCXe" />
+            </Principal>
+            <Dependent Role="LICHKH">
+              <PropertyRef Name="MaCXe" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LICHKH_XEKHACH">
+          <End Role="XEKHACH" Type="Self.XEKHACH" Multiplicity="0..1" />
+          <End Role="LICHKH" Type="Self.LICHKH" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="XEKHACH">
+              <PropertyRef Name="SoHieuXe" />
+            </Principal>
+            <Dependent Role="LICHKH">
+              <PropertyRef Name="SoHieuXe" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_NHANVIEN_VITRI">
+          <End Role="VITRI" Type="Self.VITRI" Multiplicity="0..1" />
+          <End Role="NHANVIEN" Type="Self.NHANVIEN" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VITRI">
+              <PropertyRef Name="MaViTri" />
+            </Principal>
+            <Dependent Role="NHANVIEN">
+              <PropertyRef Name="MaViTri" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PHANCONG_LICHKH">
+          <End Role="LICHKH" Type="Self.LICHKH" Multiplicity="1" />
+          <End Role="PHANCONG" Type="Self.PHANCONG" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LICHKH">
+              <PropertyRef Name="NgayDi" />
+              <PropertyRef Name="MaCXe" />
+            </Principal>
+            <Dependent Role="PHANCONG">
+              <PropertyRef Name="NgayDi" />
+              <PropertyRef Name="MaCXe" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PHANCONG_NHANVIEN">
+          <End Role="NHANVIEN" Type="Self.NHANVIEN" Multiplicity="1" />
+          <End Role="PHANCONG" Type="Self.PHANCONG" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NHANVIEN">
+              <PropertyRef Name="MaNV" />
+            </Principal>
+            <Dependent Role="PHANCONG">
+              <PropertyRef Name="MaNV" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="spDeleteChuyenXe" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="MaCXe" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="spDeleteCustomer" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="MaKH" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spDeleteDatCho" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="MaKH" Type="int" Mode="In" />
+          <Parameter Name="NgayDi" Type="date" Mode="In" />
+          <Parameter Name="MaCXe" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="spDeleteLichKH" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="NgayDi" Type="date" Mode="In" />
+          <Parameter Name="MaCXe" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="spDeletePhanCong" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="MaNV" Type="varchar" Mode="In" />
+          <Parameter Name="NgayDi" Type="date" Mode="In" />
+          <Parameter Name="MaCXe" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="spDeleteTuyenXe" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="MaTuyen" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="spDeleTeViTri" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="MaViTri" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spDeleteWorker" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="MaNV" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="spDeleteXeKhach" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="SoHieuXe" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="spGetChuyenXe" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="spGetChuyenXeDetail" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="MaCXe" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="spGetCustomer" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="spGetCustomerCalendar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="NgayDi" Type="date" Mode="In" />
+          <Parameter Name="MaCXe" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="spGetDatCho" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="spGetLichKH" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="spGetPhanCong" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="spGetTuyenXe" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="spGetViTri" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="spGetWorker" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="spGetWorkerCalendar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="NgayDi" Type="date" Mode="In" />
+          <Parameter Name="MaCXe" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="spGetXeKhach" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="spInsertChuyenXe" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="MaCXe" Type="varchar" Mode="In" />
+          <Parameter Name="MaTuyen" Type="varchar" Mode="In" />
+          <Parameter Name="GioDi" Type="time" Mode="In" />
+          <Parameter Name="GioDen" Type="time" Mode="In" />
+        </Function>
+        <Function Name="spInsertCustomer" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="HoVaTen" Type="nvarchar" Mode="In" />
+          <Parameter Name="NSinh" Type="date" Mode="In" />
+          <Parameter Name="DThoai" Type="varchar" Mode="In" />
+          <Parameter Name="CMND" Type="varchar" Mode="In" />
+          <Parameter Name="DChi" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="spInsertDatCho" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="MaKH" Type="int" Mode="In" />
+          <Parameter Name="NgayDi" Type="date" Mode="In" />
+          <Parameter Name="MaCXe" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="spInsertLichKH" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="NgayDi" Type="date" Mode="In" />
+          <Parameter Name="MaCXe" Type="varchar" Mode="In" />
+          <Parameter Name="SoHieuXe" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="spInsertPhanCong" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="MaNV" Type="varchar" Mode="In" />
+          <Parameter Name="NgayDi" Type="date" Mode="In" />
+          <Parameter Name="MaCXe" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="spInsertTuyenXe" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="MaTuyen" Type="varchar" Mode="In" />
+          <Parameter Name="DDi" Type="nvarchar" Mode="In" />
+          <Parameter Name="DDen" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="spInsertViTri" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="MaViTri" Type="int" Mode="In" />
+          <Parameter Name="TenViTri" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="spInsertWorker" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="HoVaTen" Type="nvarchar" Mode="In" />
+          <Parameter Name="NSinh" Type="date" Mode="In" />
+          <Parameter Name="MaNV" Type="varchar" Mode="In" />
+          <Parameter Name="DThoai" Type="varchar" Mode="In" />
+          <Parameter Name="CMND" Type="varchar" Mode="In" />
+          <Parameter Name="DChi" Type="nvarchar" Mode="In" />
+          <Parameter Name="MaViTri" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spInsertXeKhach" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="SoHieuXe" Type="varchar" Mode="In" />
+          <Parameter Name="SoGhe" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spUpdateChuyenXe" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="MaCXe" Type="varchar" Mode="In" />
+          <Parameter Name="MaTuyen" Type="varchar" Mode="In" />
+          <Parameter Name="GioDi" Type="time" Mode="In" />
+          <Parameter Name="GioDen" Type="time" Mode="In" />
+        </Function>
+        <Function Name="spUpdateCustomer" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="HoVaTen" Type="nvarchar" Mode="In" />
+          <Parameter Name="NSinh" Type="date" Mode="In" />
+          <Parameter Name="MaKH" Type="int" Mode="In" />
+          <Parameter Name="DThoai" Type="varchar" Mode="In" />
+          <Parameter Name="CMND" Type="varchar" Mode="In" />
+          <Parameter Name="DChi" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="spUpdateDatCho" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="MaKH" Type="int" Mode="In" />
+          <Parameter Name="NgayDi" Type="date" Mode="In" />
+          <Parameter Name="MaCXe" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="spUpdateLichKH" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="NgayDi" Type="date" Mode="In" />
+          <Parameter Name="MaCXe" Type="varchar" Mode="In" />
+          <Parameter Name="SoHieuXe" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="spUpdatePhanCong" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="MaNV" Type="varchar" Mode="In" />
+          <Parameter Name="NgayDi" Type="date" Mode="In" />
+          <Parameter Name="MaCXe" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="spUpdateTuyenXe" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="MaTuyen" Type="varchar" Mode="In" />
+          <Parameter Name="DDi" Type="nvarchar" Mode="In" />
+          <Parameter Name="DDen" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="spUpdateViTri" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="MaViTri" Type="int" Mode="In" />
+          <Parameter Name="TenViTri" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="spUpdateWorker" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="HoVaTen" Type="nvarchar" Mode="In" />
+          <Parameter Name="NSinh" Type="date" Mode="In" />
+          <Parameter Name="MaNV" Type="varchar" Mode="In" />
+          <Parameter Name="DThoai" Type="varchar" Mode="In" />
+          <Parameter Name="CMND" Type="varchar" Mode="In" />
+          <Parameter Name="DChi" Type="nvarchar" Mode="In" />
+          <Parameter Name="MaViTri" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spUpdateXeKhach" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="SoHieuXe" Type="varchar" Mode="In" />
+          <Parameter Name="SoGhe" Type="int" Mode="In" />
+        </Function>
+        <EntityContainer Name="NHAXEModelStoreContainer">
+          <EntitySet Name="CHUYENXE" EntityType="Self.CHUYENXE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DATCHO" EntityType="Self.DATCHO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="KHACHHANG" EntityType="Self.KHACHHANG" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LICHKH" EntityType="Self.LICHKH" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="NHANVIEN" EntityType="Self.NHANVIEN" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PHANCONG" EntityType="Self.PHANCONG" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TUYENXE" EntityType="Self.TUYENXE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="VITRI" EntityType="Self.VITRI" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="XEKHACH" EntityType="Self.XEKHACH" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_CHUYENXE_TUYENXE" Association="Self.FK_CHUYENXE_TUYENXE">
+            <End Role="TUYENXE" EntitySet="TUYENXE" />
+            <End Role="CHUYENXE" EntitySet="CHUYENXE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DATCHO_KHACHHANG" Association="Self.FK_DATCHO_KHACHHANG">
+            <End Role="KHACHHANG" EntitySet="KHACHHANG" />
+            <End Role="DATCHO" EntitySet="DATCHO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DATCHO_LICHKH" Association="Self.FK_DATCHO_LICHKH">
+            <End Role="LICHKH" EntitySet="LICHKH" />
+            <End Role="DATCHO" EntitySet="DATCHO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LICHKH_CHUYENXE" Association="Self.FK_LICHKH_CHUYENXE">
+            <End Role="CHUYENXE" EntitySet="CHUYENXE" />
+            <End Role="LICHKH" EntitySet="LICHKH" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LICHKH_XEKHACH" Association="Self.FK_LICHKH_XEKHACH">
+            <End Role="XEKHACH" EntitySet="XEKHACH" />
+            <End Role="LICHKH" EntitySet="LICHKH" />
+          </AssociationSet>
+          <AssociationSet Name="FK_NHANVIEN_VITRI" Association="Self.FK_NHANVIEN_VITRI">
+            <End Role="VITRI" EntitySet="VITRI" />
+            <End Role="NHANVIEN" EntitySet="NHANVIEN" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PHANCONG_LICHKH" Association="Self.FK_PHANCONG_LICHKH">
+            <End Role="LICHKH" EntitySet="LICHKH" />
+            <End Role="PHANCONG" EntitySet="PHANCONG" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PHANCONG_NHANVIEN" Association="Self.FK_PHANCONG_NHANVIEN">
+            <End Role="NHANVIEN" EntitySet="NHANVIEN" />
+            <End Role="PHANCONG" EntitySet="PHANCONG" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="NHAXEModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="CHUYENXE">
+          <Key>
+            <PropertyRef Name="MaCXe" />
+          </Key>
+          <Property Name="MaCXe" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="MaTuyen" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="GioDi" Type="Time" Precision="7" />
+          <Property Name="GioDen" Type="Time" Precision="7" />
+        </EntityType>
+        <EntityType Name="KHACHHANG">
+          <Key>
+            <PropertyRef Name="MaKH" />
+          </Key>
+          <Property Name="HoVaTen" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="NSinh" Type="DateTime" Precision="0" />
+          <Property Name="DThoai" Type="String" MaxLength="11" FixedLength="false" Unicode="false" />
+          <Property Name="CMND" Type="String" MaxLength="9" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DChi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MaKH" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="LICHKH">
+          <Key>
+            <PropertyRef Name="NgayDi" />
+            <PropertyRef Name="MaCXe" />
+          </Key>
+          <Property Name="NgayDi" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="MaCXe" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="SoHieuXe" Type="String" MaxLength="9" FixedLength="false" Unicode="false" />
+          </EntityType>
+        <EntityType Name="NHANVIEN">
+          <Key>
+            <PropertyRef Name="MaNV" />
+          </Key>
+          <Property Name="HoVaTen" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="NSinh" Type="DateTime" Precision="0" />
+          <Property Name="MaNV" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DThoai" Type="String" MaxLength="11" FixedLength="false" Unicode="false" />
+          <Property Name="CMND" Type="String" MaxLength="9" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DChi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MaViTri" Type="Int32" />
+        </EntityType>
+        <EntityType Name="TUYENXE">
+          <Key>
+            <PropertyRef Name="MaTuyen" />
+          </Key>
+          <Property Name="MaTuyen" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DDi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DDen" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="VITRI">
+          <Key>
+            <PropertyRef Name="MaViTri" />
+          </Key>
+          <Property Name="MaViTri" Type="Int32" Nullable="false" />
+          <Property Name="TenViTri" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="XEKHACH">
+          <Key>
+            <PropertyRef Name="SoHieuXe" />
+          </Key>
+          <Property Name="SoHieuXe" Type="String" MaxLength="9" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="SoGhe" Type="Int32" />
+        </EntityType>
+        <Association Name="FK_CHUYENXE_TUYENXE">
+          <End Role="TUYENXE" Type="Self.TUYENXE" Multiplicity="0..1" />
+          <End Role="CHUYENXE" Type="Self.CHUYENXE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TUYENXE">
+              <PropertyRef Name="MaTuyen" />
+            </Principal>
+            <Dependent Role="CHUYENXE">
+              <PropertyRef Name="MaTuyen" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LICHKH_CHUYENXE">
+          <End Role="CHUYENXE" Type="Self.CHUYENXE" Multiplicity="1" />
+          <End Role="LICHKH" Type="Self.LICHKH" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CHUYENXE">
+              <PropertyRef Name="MaCXe" />
+            </Principal>
+            <Dependent Role="LICHKH">
+              <PropertyRef Name="MaCXe" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LICHKH_XEKHACH">
+          <End Role="XEKHACH" Type="Self.XEKHACH" Multiplicity="0..1" />
+          <End Role="LICHKH" Type="Self.LICHKH" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="XEKHACH">
+              <PropertyRef Name="SoHieuXe" />
+            </Principal>
+            <Dependent Role="LICHKH">
+              <PropertyRef Name="SoHieuXe" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_NHANVIEN_VITRI">
+          <End Role="VITRI" Type="Self.VITRI" Multiplicity="0..1" />
+          <End Role="NHANVIEN" Type="Self.NHANVIEN" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VITRI">
+              <PropertyRef Name="MaViTri" />
+            </Principal>
+            <Dependent Role="NHANVIEN">
+              <PropertyRef Name="MaViTri" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="NHAXEEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="CHUYENXEs" EntityType="Self.CHUYENXE" />
+          <EntitySet Name="KHACHHANGs" EntityType="Self.KHACHHANG" />
+          <EntitySet Name="LICHKHs" EntityType="Self.LICHKH" />
+          <EntitySet Name="NHANVIENs" EntityType="Self.NHANVIEN" />
+          <EntitySet Name="TUYENXEs" EntityType="Self.TUYENXE" />
+          <EntitySet Name="VITRIs" EntityType="Self.VITRI" />
+          <EntitySet Name="XEKHACHes" EntityType="Self.XEKHACH" />
+          <AssociationSet Name="FK_CHUYENXE_TUYENXE" Association="Self.FK_CHUYENXE_TUYENXE">
+            <End Role="TUYENXE" EntitySet="TUYENXEs" />
+            <End Role="CHUYENXE" EntitySet="CHUYENXEs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LICHKH_CHUYENXE" Association="Self.FK_LICHKH_CHUYENXE">
+            <End Role="CHUYENXE" EntitySet="CHUYENXEs" />
+            <End Role="LICHKH" EntitySet="LICHKHs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LICHKH_XEKHACH" Association="Self.FK_LICHKH_XEKHACH">
+            <End Role="XEKHACH" EntitySet="XEKHACHes" />
+            <End Role="LICHKH" EntitySet="LICHKHs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_NHANVIEN_VITRI" Association="Self.FK_NHANVIEN_VITRI">
+            <End Role="VITRI" EntitySet="VITRIs" />
+            <End Role="NHANVIEN" EntitySet="NHANVIENs" />
+          </AssociationSet>
+          <FunctionImport Name="spDeleteChuyenXe">
+            <Parameter Name="MaCXe" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spDeleteCustomer">
+            <Parameter Name="MaKH" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spDeleteDatCho">
+            <Parameter Name="MaKH" Mode="In" Type="Int32" />
+            <Parameter Name="NgayDi" Mode="In" Type="DateTime" />
+            <Parameter Name="MaCXe" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spDeleteLichKH">
+            <Parameter Name="NgayDi" Mode="In" Type="DateTime" />
+            <Parameter Name="MaCXe" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spDeletePhanCong">
+            <Parameter Name="MaNV" Mode="In" Type="String" />
+            <Parameter Name="NgayDi" Mode="In" Type="DateTime" />
+            <Parameter Name="MaCXe" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spDeleteTuyenXe">
+            <Parameter Name="MaTuyen" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spDeleTeViTri">
+            <Parameter Name="MaViTri" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spDeleteWorker">
+            <Parameter Name="MaNV" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spDeleteXeKhach">
+            <Parameter Name="SoHieuXe" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spGetChuyenXe" ReturnType="Collection(NHAXEModel.spGetChuyenXe_Result)" />
+          <FunctionImport Name="spGetChuyenXeDetail" ReturnType="Collection(NHAXEModel.spGetChuyenXeDetail_Result)">
+            <Parameter Name="MaCXe" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spGetCustomer" ReturnType="Collection(NHAXEModel.spGetCustomer_Result)" />
+          <FunctionImport Name="spGetCustomerCalendar" ReturnType="Collection(NHAXEModel.spGetCustomerCalendar_Result)">
+            <Parameter Name="NgayDi" Mode="In" Type="DateTime" />
+            <Parameter Name="MaCXe" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spGetDatCho" ReturnType="Collection(NHAXEModel.spGetDatCho_Result)" />
+          <FunctionImport Name="spGetLichKH" ReturnType="Collection(NHAXEModel.spGetLichKH_Result)" />
+          <FunctionImport Name="spGetPhanCong" ReturnType="Collection(NHAXEModel.spGetPhanCong_Result)" />
+          <FunctionImport Name="spGetTuyenXe" ReturnType="Collection(NHAXEModel.spGetTuyenXe_Result)" />
+          <FunctionImport Name="spGetViTri" ReturnType="Collection(NHAXEModel.spGetViTri_Result)" />
+          <FunctionImport Name="spGetWorker" ReturnType="Collection(NHAXEModel.spGetWorker_Result)" />
+          <FunctionImport Name="spGetWorkerCalendar" ReturnType="Collection(NHAXEModel.spGetWorkerCalendar_Result)">
+            <Parameter Name="NgayDi" Mode="In" Type="DateTime" />
+            <Parameter Name="MaCXe" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spGetXeKhach" ReturnType="Collection(NHAXEModel.spGetXeKhach_Result)" />
+          <FunctionImport Name="spInsertChuyenXe">
+            <Parameter Name="MaCXe" Mode="In" Type="String" />
+            <Parameter Name="MaTuyen" Mode="In" Type="String" />
+            <Parameter Name="GioDi" Mode="In" Type="Time" />
+            <Parameter Name="GioDen" Mode="In" Type="Time" />
+          </FunctionImport>
+          <FunctionImport Name="spInsertCustomer">
+            <Parameter Name="HoVaTen" Mode="In" Type="String" />
+            <Parameter Name="NSinh" Mode="In" Type="DateTime" />
+            <Parameter Name="DThoai" Mode="In" Type="String" />
+            <Parameter Name="CMND" Mode="In" Type="String" />
+            <Parameter Name="DChi" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spInsertDatCho">
+            <Parameter Name="MaKH" Mode="In" Type="Int32" />
+            <Parameter Name="NgayDi" Mode="In" Type="DateTime" />
+            <Parameter Name="MaCXe" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spInsertLichKH">
+            <Parameter Name="NgayDi" Mode="In" Type="DateTime" />
+            <Parameter Name="MaCXe" Mode="In" Type="String" />
+            <Parameter Name="SoHieuXe" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spInsertPhanCong">
+            <Parameter Name="MaNV" Mode="In" Type="String" />
+            <Parameter Name="NgayDi" Mode="In" Type="DateTime" />
+            <Parameter Name="MaCXe" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spInsertTuyenXe">
+            <Parameter Name="MaTuyen" Mode="In" Type="String" />
+            <Parameter Name="DDi" Mode="In" Type="String" />
+            <Parameter Name="DDen" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spInsertViTri">
+            <Parameter Name="MaViTri" Mode="In" Type="Int32" />
+            <Parameter Name="TenViTri" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spInsertWorker">
+            <Parameter Name="HoVaTen" Mode="In" Type="String" />
+            <Parameter Name="NSinh" Mode="In" Type="DateTime" />
+            <Parameter Name="MaNV" Mode="In" Type="String" />
+            <Parameter Name="DThoai" Mode="In" Type="String" />
+            <Parameter Name="CMND" Mode="In" Type="String" />
+            <Parameter Name="DChi" Mode="In" Type="String" />
+            <Parameter Name="MaViTri" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spInsertXeKhach">
+            <Parameter Name="SoHieuXe" Mode="In" Type="String" />
+            <Parameter Name="SoGhe" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spUpdateChuyenXe">
+            <Parameter Name="MaCXe" Mode="In" Type="String" />
+            <Parameter Name="MaTuyen" Mode="In" Type="String" />
+            <Parameter Name="GioDi" Mode="In" Type="Time" />
+            <Parameter Name="GioDen" Mode="In" Type="Time" />
+          </FunctionImport>
+          <FunctionImport Name="spUpdateCustomer">
+            <Parameter Name="HoVaTen" Mode="In" Type="String" />
+            <Parameter Name="NSinh" Mode="In" Type="DateTime" />
+            <Parameter Name="MaKH" Mode="In" Type="Int32" />
+            <Parameter Name="DThoai" Mode="In" Type="String" />
+            <Parameter Name="CMND" Mode="In" Type="String" />
+            <Parameter Name="DChi" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spUpdateDatCho">
+            <Parameter Name="MaKH" Mode="In" Type="Int32" />
+            <Parameter Name="NgayDi" Mode="In" Type="DateTime" />
+            <Parameter Name="MaCXe" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spUpdateLichKH">
+            <Parameter Name="NgayDi" Mode="In" Type="DateTime" />
+            <Parameter Name="MaCXe" Mode="In" Type="String" />
+            <Parameter Name="SoHieuXe" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spUpdatePhanCong">
+            <Parameter Name="MaNV" Mode="In" Type="String" />
+            <Parameter Name="NgayDi" Mode="In" Type="DateTime" />
+            <Parameter Name="MaCXe" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spUpdateTuyenXe">
+            <Parameter Name="MaTuyen" Mode="In" Type="String" />
+            <Parameter Name="DDi" Mode="In" Type="String" />
+            <Parameter Name="DDen" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spUpdateViTri">
+            <Parameter Name="MaViTri" Mode="In" Type="Int32" />
+            <Parameter Name="TenViTri" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spUpdateWorker">
+            <Parameter Name="HoVaTen" Mode="In" Type="String" />
+            <Parameter Name="NSinh" Mode="In" Type="DateTime" />
+            <Parameter Name="MaNV" Mode="In" Type="String" />
+            <Parameter Name="DThoai" Mode="In" Type="String" />
+            <Parameter Name="CMND" Mode="In" Type="String" />
+            <Parameter Name="DChi" Mode="In" Type="String" />
+            <Parameter Name="MaViTri" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spUpdateXeKhach">
+            <Parameter Name="SoHieuXe" Mode="In" Type="String" />
+            <Parameter Name="SoGhe" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="PHANCONGs" EntityType="NHAXEModel.PHANCONG" />
+          <AssociationSet Name="LICHKHPHANCONG" Association="NHAXEModel.LICHKHPHANCONG">
+            <End Role="LICHKH" EntitySet="LICHKHs" />
+            <End Role="PHANCONG" EntitySet="PHANCONGs" />
+          </AssociationSet>
+          <AssociationSet Name="PHANCONGNHANVIEN" Association="NHAXEModel.PHANCONGNHANVIEN">
+            <End Role="PHANCONG" EntitySet="PHANCONGs" />
+            <End Role="NHANVIEN" EntitySet="NHANVIENs" />
+          </AssociationSet>
+          <EntitySet Name="DATCHOes" EntityType="NHAXEModel.DATCHO" />
+          <AssociationSet Name="LICHKHDATCHO" Association="NHAXEModel.LICHKHDATCHO">
+            <End Role="LICHKH" EntitySet="LICHKHs" />
+            <End Role="DATCHO" EntitySet="DATCHOes" />
+          </AssociationSet>
+          <AssociationSet Name="DATCHOKHACHHANG" Association="NHAXEModel.DATCHOKHACHHANG">
+            <End Role="DATCHO" EntitySet="DATCHOes" />
+            <End Role="KHACHHANG" EntitySet="KHACHHANGs" />
+          </AssociationSet>
+        </EntityContainer>
+        <ComplexType Name="spGetChuyenXe_Result">
+          <Property Type="String" Name="MaCXe" Nullable="false" MaxLength="5" />
+          <Property Type="String" Name="MaTuyen" Nullable="true" MaxLength="5" />
+          <Property Type="Time" Name="GioDi" Nullable="true" />
+          <Property Type="Time" Name="GioDen" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="spGetChuyenXeDetail_Result">
+          <Property Type="String" Name="MaCXe" Nullable="false" MaxLength="5" />
+          <Property Type="String" Name="MaTuyen" Nullable="true" MaxLength="5" />
+          <Property Type="Time" Name="GioDi" Nullable="true" />
+          <Property Type="Time" Name="GioDen" Nullable="true" />
+          <Property Type="String" Name="DDi" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="DDen" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="spGetCustomer_Result">
+          <Property Type="String" Name="HoVaTen" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="MaKH" Nullable="false" />
+          <Property Type="DateTime" Name="NSinh" Nullable="true" />
+          <Property Type="String" Name="DThoai" Nullable="true" MaxLength="11" />
+          <Property Type="String" Name="CMND" Nullable="false" MaxLength="9" />
+          <Property Type="String" Name="DChi" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="spGetCustomerCalendar_Result">
+          <Property Type="String" Name="HoVaTen" Nullable="false" MaxLength="50" />
+          <Property Type="DateTime" Name="NSinh" Nullable="true" />
+          <Property Type="String" Name="DThoai" Nullable="true" MaxLength="11" />
+          <Property Type="String" Name="CMND" Nullable="false" MaxLength="9" />
+          <Property Type="String" Name="DChi" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="MaKH" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="spGetDatCho_Result">
+          <Property Type="DateTime" Name="NgayDi" Nullable="false" />
+          <Property Type="String" Name="MaCXe" Nullable="false" MaxLength="5" />
+          <Property Type="String" Name="HoVaTen" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="MaKH" Nullable="false" />
+          <Property Type="DateTime" Name="NSinh" Nullable="true" />
+          <Property Type="String" Name="DThoai" Nullable="true" MaxLength="11" />
+          <Property Type="String" Name="CMND" Nullable="false" MaxLength="9" />
+          <Property Type="String" Name="DChi" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="spGetLichKH_Result">
+          <Property Type="DateTime" Name="NgayDi" Nullable="false" />
+          <Property Type="String" Name="MaCXe" Nullable="false" MaxLength="5" />
+          <Property Type="String" Name="SoHieuXe" Nullable="true" MaxLength="9" />
+        </ComplexType>
+        <ComplexType Name="spGetPhanCong_Result">
+          <Property Type="DateTime" Name="NgayDi" Nullable="false" />
+          <Property Type="String" Name="MaCXe" Nullable="false" MaxLength="5" />
+          <Property Type="String" Name="HoVaTen" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="NSinh" Nullable="true" />
+          <Property Type="String" Name="MaNV" Nullable="false" MaxLength="5" />
+          <Property Type="String" Name="DThoai" Nullable="true" MaxLength="11" />
+          <Property Type="String" Name="CMND" Nullable="false" MaxLength="9" />
+          <Property Type="String" Name="DChi" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="MaViTri" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="spGetTuyenXe_Result">
+          <Property Type="String" Name="MaTuyen" Nullable="false" MaxLength="5" />
+          <Property Type="String" Name="DDi" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="DDen" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="spGetViTri_Result">
+          <Property Type="Int32" Name="MaViTri" Nullable="false" />
+          <Property Type="String" Name="TenViTri" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="spGetWorker_Result">
+          <Property Type="String" Name="HoVaTen" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="NSinh" Nullable="true" />
+          <Property Type="String" Name="MaNV" Nullable="false" MaxLength="5" />
+          <Property Type="String" Name="DThoai" Nullable="true" MaxLength="11" />
+          <Property Type="String" Name="CMND" Nullable="false" MaxLength="9" />
+          <Property Type="String" Name="DChi" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="MaViTri" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="spGetWorkerCalendar_Result">
+          <Property Type="String" Name="HoVaTen" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="NSinh" Nullable="true" />
+          <Property Type="String" Name="MaNV" Nullable="false" MaxLength="5" />
+          <Property Type="String" Name="DThoai" Nullable="true" MaxLength="11" />
+          <Property Type="String" Name="CMND" Nullable="false" MaxLength="9" />
+          <Property Type="String" Name="DChi" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="MaViTri" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="spGetXeKhach_Result">
+          <Property Type="String" Name="SoHieuXe" Nullable="false" MaxLength="9" />
+          <Property Type="Int32" Name="SoGhe" Nullable="true" />
+        </ComplexType>
+        <EntityType Name="PHANCONG" >
+          <Key>
+            <PropertyRef Name="NgayDi" />
+            <PropertyRef Name="MaCXe" />
+            <PropertyRef Name="MaNV" />
+          </Key>
+          <Property Name="MaNV" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="MaCXe" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="NgayDi" Type="DateTime" Nullable="false" Precision="0" />
+          </EntityType>
+        <Association Name="LICHKHPHANCONG">
+          <End Type="NHAXEModel.LICHKH" Role="LICHKH" Multiplicity="1" />
+          <End Type="NHAXEModel.PHANCONG" Role="PHANCONG" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LICHKH">
+              <PropertyRef Name="NgayDi" />
+              <PropertyRef Name="MaCXe" />
+            </Principal>
+            <Dependent Role="PHANCONG">
+              <PropertyRef Name="NgayDi" />
+              <PropertyRef Name="MaCXe" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="PHANCONGNHANVIEN">
+          <End Type="NHAXEModel.PHANCONG" Role="PHANCONG" Multiplicity="*" />
+          <End Type="NHAXEModel.NHANVIEN" Role="NHANVIEN" Multiplicity="1" />
+          <ReferentialConstraint>
+            <Principal Role="NHANVIEN">
+              <PropertyRef Name="MaNV" />
+            </Principal>
+            <Dependent Role="PHANCONG">
+              <PropertyRef Name="MaNV" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="DATCHO">
+          <Key>
+            <PropertyRef Name="MaKH" />
+            <PropertyRef Name="MaCXe" />
+            <PropertyRef Name="NgayDi" />
+          </Key>
+          <Property Name="MaKH" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MaCXe" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="NgayDi" Type="DateTime" Nullable="false" Precision="0" />
+          </EntityType>
+        <Association Name="LICHKHDATCHO">
+          <End Type="NHAXEModel.LICHKH" Role="LICHKH" Multiplicity="1" />
+          <End Type="NHAXEModel.DATCHO" Role="DATCHO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LICHKH">
+              <PropertyRef Name="NgayDi" />
+              <PropertyRef Name="MaCXe" />
+            </Principal>
+            <Dependent Role="DATCHO">
+              <PropertyRef Name="NgayDi" />
+              <PropertyRef Name="MaCXe" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="DATCHOKHACHHANG">
+          <End Type="NHAXEModel.DATCHO" Role="DATCHO" Multiplicity="*" />
+          <End Type="NHAXEModel.KHACHHANG" Role="KHACHHANG" Multiplicity="1" />
+          <ReferentialConstraint>
+            <Principal Role="KHACHHANG">
+              <PropertyRef Name="MaKH" />
+            </Principal>
+            <Dependent Role="DATCHO">
+              <PropertyRef Name="MaKH" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="NHAXEModelStoreContainer" CdmEntityContainer="NHAXEEntities">
+          <EntitySetMapping Name="CHUYENXEs">
+            <EntityTypeMapping TypeName="NHAXEModel.CHUYENXE">
+              <MappingFragment StoreEntitySet="CHUYENXE">
+                <ScalarProperty Name="MaCXe" ColumnName="MaCXe" />
+                <ScalarProperty Name="MaTuyen" ColumnName="MaTuyen" />
+                <ScalarProperty Name="GioDi" ColumnName="GioDi" />
+                <ScalarProperty Name="GioDen" ColumnName="GioDen" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="KHACHHANGs">
+            <EntityTypeMapping TypeName="NHAXEModel.KHACHHANG">
+              <MappingFragment StoreEntitySet="KHACHHANG">
+                <ScalarProperty Name="HoVaTen" ColumnName="HoVaTen" />
+                <ScalarProperty Name="NSinh" ColumnName="NSinh" />
+                <ScalarProperty Name="DThoai" ColumnName="DThoai" />
+                <ScalarProperty Name="CMND" ColumnName="CMND" />
+                <ScalarProperty Name="DChi" ColumnName="DChi" />
+                <ScalarProperty Name="MaKH" ColumnName="MaKH" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LICHKHs">
+            <EntityTypeMapping TypeName="NHAXEModel.LICHKH">
+              <MappingFragment StoreEntitySet="LICHKH">
+                <ScalarProperty Name="NgayDi" ColumnName="NgayDi" />
+                <ScalarProperty Name="MaCXe" ColumnName="MaCXe" />
+                <ScalarProperty Name="SoHieuXe" ColumnName="SoHieuXe" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NHANVIENs">
+            <EntityTypeMapping TypeName="NHAXEModel.NHANVIEN">
+              <MappingFragment StoreEntitySet="NHANVIEN">
+                <ScalarProperty Name="HoVaTen" ColumnName="HoVaTen" />
+                <ScalarProperty Name="NSinh" ColumnName="NSinh" />
+                <ScalarProperty Name="MaNV" ColumnName="MaNV" />
+                <ScalarProperty Name="DThoai" ColumnName="DThoai" />
+                <ScalarProperty Name="CMND" ColumnName="CMND" />
+                <ScalarProperty Name="DChi" ColumnName="DChi" />
+                <ScalarProperty Name="MaViTri" ColumnName="MaViTri" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TUYENXEs">
+            <EntityTypeMapping TypeName="NHAXEModel.TUYENXE">
+              <MappingFragment StoreEntitySet="TUYENXE">
+                <ScalarProperty Name="MaTuyen" ColumnName="MaTuyen" />
+                <ScalarProperty Name="DDi" ColumnName="DDi" />
+                <ScalarProperty Name="DDen" ColumnName="DDen" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VITRIs">
+            <EntityTypeMapping TypeName="NHAXEModel.VITRI">
+              <MappingFragment StoreEntitySet="VITRI">
+                <ScalarProperty Name="MaViTri" ColumnName="MaViTri" />
+                <ScalarProperty Name="TenViTri" ColumnName="TenViTri" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="XEKHACHes">
+            <EntityTypeMapping TypeName="NHAXEModel.XEKHACH">
+              <MappingFragment StoreEntitySet="XEKHACH">
+                <ScalarProperty Name="SoHieuXe" ColumnName="SoHieuXe" />
+                <ScalarProperty Name="SoGhe" ColumnName="SoGhe" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="spDeleteChuyenXe" FunctionName="NHAXEModel.Store.spDeleteChuyenXe" />
+          <FunctionImportMapping FunctionImportName="spDeleteCustomer" FunctionName="NHAXEModel.Store.spDeleteCustomer" />
+          <FunctionImportMapping FunctionImportName="spDeleteDatCho" FunctionName="NHAXEModel.Store.spDeleteDatCho" />
+          <FunctionImportMapping FunctionImportName="spDeleteLichKH" FunctionName="NHAXEModel.Store.spDeleteLichKH" />
+          <FunctionImportMapping FunctionImportName="spDeletePhanCong" FunctionName="NHAXEModel.Store.spDeletePhanCong" />
+          <FunctionImportMapping FunctionImportName="spDeleteTuyenXe" FunctionName="NHAXEModel.Store.spDeleteTuyenXe" />
+          <FunctionImportMapping FunctionImportName="spDeleTeViTri" FunctionName="NHAXEModel.Store.spDeleTeViTri" />
+          <FunctionImportMapping FunctionImportName="spDeleteWorker" FunctionName="NHAXEModel.Store.spDeleteWorker" />
+          <FunctionImportMapping FunctionImportName="spDeleteXeKhach" FunctionName="NHAXEModel.Store.spDeleteXeKhach" />
+          <FunctionImportMapping FunctionImportName="spGetChuyenXe" FunctionName="NHAXEModel.Store.spGetChuyenXe">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="NHAXEModel.spGetChuyenXe_Result">
+                <ScalarProperty Name="MaCXe" ColumnName="MaCXe" />
+                <ScalarProperty Name="MaTuyen" ColumnName="MaTuyen" />
+                <ScalarProperty Name="GioDi" ColumnName="GioDi" />
+                <ScalarProperty Name="GioDen" ColumnName="GioDen" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spGetChuyenXeDetail" FunctionName="NHAXEModel.Store.spGetChuyenXeDetail">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="NHAXEModel.spGetChuyenXeDetail_Result">
+                <ScalarProperty Name="MaCXe" ColumnName="MaCXe" />
+                <ScalarProperty Name="MaTuyen" ColumnName="MaTuyen" />
+                <ScalarProperty Name="GioDi" ColumnName="GioDi" />
+                <ScalarProperty Name="GioDen" ColumnName="GioDen" />
+                <ScalarProperty Name="DDi" ColumnName="DDi" />
+                <ScalarProperty Name="DDen" ColumnName="DDen" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spGetCustomer" FunctionName="NHAXEModel.Store.spGetCustomer">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="NHAXEModel.spGetCustomer_Result">
+                <ScalarProperty Name="HoVaTen" ColumnName="HoVaTen" />
+                <ScalarProperty Name="MaKH" ColumnName="MaKH" />
+                <ScalarProperty Name="NSinh" ColumnName="NSinh" />
+                <ScalarProperty Name="DThoai" ColumnName="DThoai" />
+                <ScalarProperty Name="CMND" ColumnName="CMND" />
+                <ScalarProperty Name="DChi" ColumnName="DChi" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spGetCustomerCalendar" FunctionName="NHAXEModel.Store.spGetCustomerCalendar">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="NHAXEModel.spGetCustomerCalendar_Result">
+                <ScalarProperty Name="HoVaTen" ColumnName="HoVaTen" />
+                <ScalarProperty Name="NSinh" ColumnName="NSinh" />
+                <ScalarProperty Name="DThoai" ColumnName="DThoai" />
+                <ScalarProperty Name="CMND" ColumnName="CMND" />
+                <ScalarProperty Name="DChi" ColumnName="DChi" />
+                <ScalarProperty Name="MaKH" ColumnName="MaKH" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spGetDatCho" FunctionName="NHAXEModel.Store.spGetDatCho">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="NHAXEModel.spGetDatCho_Result">
+                <ScalarProperty Name="NgayDi" ColumnName="NgayDi" />
+                <ScalarProperty Name="MaCXe" ColumnName="MaCXe" />
+                <ScalarProperty Name="HoVaTen" ColumnName="HoVaTen" />
+                <ScalarProperty Name="MaKH" ColumnName="MaKH" />
+                <ScalarProperty Name="NSinh" ColumnName="NSinh" />
+                <ScalarProperty Name="DThoai" ColumnName="DThoai" />
+                <ScalarProperty Name="CMND" ColumnName="CMND" />
+                <ScalarProperty Name="DChi" ColumnName="DChi" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spGetLichKH" FunctionName="NHAXEModel.Store.spGetLichKH">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="NHAXEModel.spGetLichKH_Result">
+                <ScalarProperty Name="NgayDi" ColumnName="NgayDi" />
+                <ScalarProperty Name="MaCXe" ColumnName="MaCXe" />
+                <ScalarProperty Name="SoHieuXe" ColumnName="SoHieuXe" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spGetPhanCong" FunctionName="NHAXEModel.Store.spGetPhanCong">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="NHAXEModel.spGetPhanCong_Result">
+                <ScalarProperty Name="NgayDi" ColumnName="NgayDi" />
+                <ScalarProperty Name="MaCXe" ColumnName="MaCXe" />
+                <ScalarProperty Name="HoVaTen" ColumnName="HoVaTen" />
+                <ScalarProperty Name="NSinh" ColumnName="NSinh" />
+                <ScalarProperty Name="MaNV" ColumnName="MaNV" />
+                <ScalarProperty Name="DThoai" ColumnName="DThoai" />
+                <ScalarProperty Name="CMND" ColumnName="CMND" />
+                <ScalarProperty Name="DChi" ColumnName="DChi" />
+                <ScalarProperty Name="MaViTri" ColumnName="MaViTri" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spGetTuyenXe" FunctionName="NHAXEModel.Store.spGetTuyenXe">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="NHAXEModel.spGetTuyenXe_Result">
+                <ScalarProperty Name="MaTuyen" ColumnName="MaTuyen" />
+                <ScalarProperty Name="DDi" ColumnName="DDi" />
+                <ScalarProperty Name="DDen" ColumnName="DDen" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spGetViTri" FunctionName="NHAXEModel.Store.spGetViTri">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="NHAXEModel.spGetViTri_Result">
+                <ScalarProperty Name="MaViTri" ColumnName="MaViTri" />
+                <ScalarProperty Name="TenViTri" ColumnName="TenViTri" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spGetWorker" FunctionName="NHAXEModel.Store.spGetWorker">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="NHAXEModel.spGetWorker_Result">
+                <ScalarProperty Name="HoVaTen" ColumnName="HoVaTen" />
+                <ScalarProperty Name="NSinh" ColumnName="NSinh" />
+                <ScalarProperty Name="MaNV" ColumnName="MaNV" />
+                <ScalarProperty Name="DThoai" ColumnName="DThoai" />
+                <ScalarProperty Name="CMND" ColumnName="CMND" />
+                <ScalarProperty Name="DChi" ColumnName="DChi" />
+                <ScalarProperty Name="MaViTri" ColumnName="MaViTri" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spGetWorkerCalendar" FunctionName="NHAXEModel.Store.spGetWorkerCalendar">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="NHAXEModel.spGetWorkerCalendar_Result">
+                <ScalarProperty Name="HoVaTen" ColumnName="HoVaTen" />
+                <ScalarProperty Name="NSinh" ColumnName="NSinh" />
+                <ScalarProperty Name="MaNV" ColumnName="MaNV" />
+                <ScalarProperty Name="DThoai" ColumnName="DThoai" />
+                <ScalarProperty Name="CMND" ColumnName="CMND" />
+                <ScalarProperty Name="DChi" ColumnName="DChi" />
+                <ScalarProperty Name="MaViTri" ColumnName="MaViTri" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spGetXeKhach" FunctionName="NHAXEModel.Store.spGetXeKhach">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="NHAXEModel.spGetXeKhach_Result">
+                <ScalarProperty Name="SoHieuXe" ColumnName="SoHieuXe" />
+                <ScalarProperty Name="SoGhe" ColumnName="SoGhe" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spInsertChuyenXe" FunctionName="NHAXEModel.Store.spInsertChuyenXe" />
+          <FunctionImportMapping FunctionImportName="spInsertCustomer" FunctionName="NHAXEModel.Store.spInsertCustomer" />
+          <FunctionImportMapping FunctionImportName="spInsertDatCho" FunctionName="NHAXEModel.Store.spInsertDatCho" />
+          <FunctionImportMapping FunctionImportName="spInsertLichKH" FunctionName="NHAXEModel.Store.spInsertLichKH" />
+          <FunctionImportMapping FunctionImportName="spInsertPhanCong" FunctionName="NHAXEModel.Store.spInsertPhanCong" />
+          <FunctionImportMapping FunctionImportName="spInsertTuyenXe" FunctionName="NHAXEModel.Store.spInsertTuyenXe" />
+          <FunctionImportMapping FunctionImportName="spInsertViTri" FunctionName="NHAXEModel.Store.spInsertViTri" />
+          <FunctionImportMapping FunctionImportName="spInsertWorker" FunctionName="NHAXEModel.Store.spInsertWorker" />
+          <FunctionImportMapping FunctionImportName="spInsertXeKhach" FunctionName="NHAXEModel.Store.spInsertXeKhach" />
+          <FunctionImportMapping FunctionImportName="spUpdateChuyenXe" FunctionName="NHAXEModel.Store.spUpdateChuyenXe" />
+          <FunctionImportMapping FunctionImportName="spUpdateCustomer" FunctionName="NHAXEModel.Store.spUpdateCustomer" />
+          <FunctionImportMapping FunctionImportName="spUpdateDatCho" FunctionName="NHAXEModel.Store.spUpdateDatCho" />
+          <FunctionImportMapping FunctionImportName="spUpdateLichKH" FunctionName="NHAXEModel.Store.spUpdateLichKH" />
+          <FunctionImportMapping FunctionImportName="spUpdatePhanCong" FunctionName="NHAXEModel.Store.spUpdatePhanCong" />
+          <FunctionImportMapping FunctionImportName="spUpdateTuyenXe" FunctionName="NHAXEModel.Store.spUpdateTuyenXe" />
+          <FunctionImportMapping FunctionImportName="spUpdateViTri" FunctionName="NHAXEModel.Store.spUpdateViTri" />
+          <FunctionImportMapping FunctionImportName="spUpdateWorker" FunctionName="NHAXEModel.Store.spUpdateWorker" />
+          <FunctionImportMapping FunctionImportName="spUpdateXeKhach" FunctionName="NHAXEModel.Store.spUpdateXeKhach" />
+          <EntitySetMapping Name="PHANCONGs">
+            <EntityTypeMapping TypeName="IsTypeOf(NHAXEModel.PHANCONG)">
+              <MappingFragment StoreEntitySet="PHANCONG">
+                <ScalarProperty Name="MaCXe" ColumnName="MaCXe" />
+                <ScalarProperty Name="NgayDi" ColumnName="NgayDi" />
+                <ScalarProperty Name="MaNV" ColumnName="MaNV" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DATCHOes">
+            <EntityTypeMapping TypeName="IsTypeOf(NHAXEModel.DATCHO)">
+              <MappingFragment StoreEntitySet="DATCHO">
+                <ScalarProperty Name="MaKH" ColumnName="MaKH" />
+                <ScalarProperty Name="MaCXe" ColumnName="MaCXe" />
+                <ScalarProperty Name="NgayDi" ColumnName="NgayDi" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
